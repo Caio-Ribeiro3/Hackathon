@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import Constants from "expo-constants";
+import LoggedInNavigationCommonUser from "./src/loggedInNavigationCommonUser/LoggedInNavigationCommonUser";
+import NotLoggedInNavigation from "./src/notLoggedInNavigation/NotLoggedInNavigation";
+import LoggedInNavigationBarOwner from "./src/loggedInNavigationBarOwner/LoggedInNavigationBarOwner";
+
+const statusBarHeight = Constants.statusBarHeight;
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [users, setUsers] = React.useState([]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{ flex: 1, paddingTop: 22 }}>
+      {isLoggedIn === true ? (
+        <LoggedInNavigationCommonUser setIsLoggedIn={setIsLoggedIn} />
+      ) : (
+        <NotLoggedInNavigation setIsLoggedIn={setIsLoggedIn} />
+      )}
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: statusBarHeight,
   },
 });
